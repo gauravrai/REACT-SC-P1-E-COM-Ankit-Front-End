@@ -21,18 +21,22 @@ const Products = ({getFeaturedProducts, featuredProducts: {featuredProducts, loa
     let featuredProductParsedData = []
     if(!loading){
         featuredProductParsedData.push(featuredProducts.map(item => {
+            let itemPrice = 0
+            
+            if(item.inventory)
+                itemPrice = item.inventory[0].price
             return {
                 id: item._id,
-                name: item.name,
-                defaultPrice: item.inventory[0][0].price,
+                name: item.name, 
+                defaultPrice: itemPrice,
                 hasDiscount: item.discount,
                 hasOffer: item.offer,
                 outOfStock: item.outOfStock,
-                smallImage: item.image.small[0],
-                variant: item.inventory[0]
+                smallImage: item.smallPath + item.image.small[0],
+                thumbImage: item.thumbnailPath + item.image.thumbnail[0],
+                inventory: item.inventory
             }
         }))
-        console.log(featuredProductParsedData)
     }
     return (
         <Fragment>

@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 
 import { logout } from '../../../actions/auth'
 import Logo from '../../../assets/images/home/logo.png'
+import NavBar from './NavBar'
+
 
 //pull out auth and then destructure it, also pull out logout action below
 const HeaderMiddle = ({auth: { isAuthenticated, loading }, logout}) => {
@@ -23,7 +25,7 @@ const HeaderMiddle = ({auth: { isAuthenticated, loading }, logout}) => {
         <div className="header-middle">
             <div className="container">
                 <div className="row">
-                    <div className="col-sm-4">
+                    <div className="col-sm-3">
                         <div className="logo pull-left">
                             <Link to="/"><img src={Logo} alt="" width="120" /></Link>
                         </div>
@@ -51,15 +53,25 @@ const HeaderMiddle = ({auth: { isAuthenticated, loading }, logout}) => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-sm-8">
-                        <div className="shop-menu pull-right">
-                            <ul className="nav navbar-nav">
-                                <li><Link to="/customer/"><i className="fa fa-user"></i> Account</Link></li>
-                                <li><Link to="/customer/wishlist"><i className="fa fa-star"></i> Wishlist</Link></li>
-                                <li><Link to="/checkout"><i className="fa fa-crosshairs"></i> Checkout</Link></li>
-                                <li><Link to="/cart"><i className="fa fa-shopping-cart"></i> Cart</Link></li>
-                                { authLinks }
+                    <div className="col-sm-6">
+                        <div className="navbar-header">
+                            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div className="mainmenu pull-left">
+                            <ul className="nav navbar-nav collapse navbar-collapse">
+                                
+                                <NavBar />
                             </ul>
+                        </div>
+                    </div>
+                    <div className="col-sm-3">
+                        <div className="search_box pull-right">
+                            <input type="text" placeholder="Search anything..."/>
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,35 @@
-import React, { Fragment } from 'react'
-
-
+import React, { Fragment, useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import Header from "../../Layout/Header/Header";
 import Footer from '../../Layout/Footer/Footer'
 import CustomerSideBar from './CustomerSideBar'
-import PropTypes from 'prop-types'
+import Spinner from '../../Layout/Spinner/Spinner'
+import Address from './Address'
 
-const Dashboard = props => {
+import { 
+    getCurrentProfile,
+    updateProfile
+} from '../../../actions/profile'
+import { 
+    getState,
+    getCity,
+    getPincode,
+    getSociety,
+    getArea,
+    getTower
+} from '../../../actions/location'
+
+const Dashboard = ({
+                    profile, 
+                    getCurrentProfile,
+                }) => {
+
+                useEffect(() => { 
+                    getCurrentProfile()
+                }, [])
+    
     return (
         <Fragment>
             <Header />
@@ -16,38 +38,9 @@ const Dashboard = props => {
                     <CustomerSideBar />
                     <div className="col-md-9 col-sm-7 col-xs-12">
                         <div className="row">    		
-                            <h2 className="title">Profile Information </h2>    			    				    				
-                                
+                            <h2 className="title text-center">Profile Information </h2>
                         </div>
-                        <form action="" method="post" autoComplete="off" >
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label for="fullName">Full Name</label>
-                                    <input type="text" className="form-control" id="fullName" name="name" />
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label for="fullName">Email</label>
-                                    <input type="email" className="form-control" id="email" name="email" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label for="mobileNumber">Mobile Number</label>
-                                    <input type="text" className="form-control" id="mobileNumber" name="mobileNumber" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-12 text-center">
-                                <button className="btn btn-success">Save</button>
-                            </div>
-                        </div>
-                        </form>    	
+                        {profile.loading? <Spinner /> : <Address profile={profile} />}   	
                     </div>
                 </div>
             </div>
@@ -59,5 +52,33 @@ const Dashboard = props => {
 Dashboard.propTypes = {
 
 }
+const mapStateToProps = state => {
+    
+    return {
+        profile: state.profile,
+        billingState: state.location.billingAddress.state,
+        billingCity: state.location.billingAddress.city,
+        billingPincode: state.location.billingAddress.pincode,
+        billingArea: state.location.billingAddress.area,
+        billingSociety: state.location.billingAddress.society,
+        billingTower: state.location.billingAddress.tower,
 
-export default Dashboard
+        
+        shippingCity: state.location.shippingAddress.city,
+        shippingPincode: state.location.shippingAddress.pincode,
+        shippingArea: state.location.shippingAddress.area,
+        shippingSociety: state.location.shippingAddress.society,
+        shippingTower: state.location.shippingAddress.tower
+    }
+}
+
+export default connect(mapStateToProps, {
+    getCurrentProfile,
+    updateProfile,
+    getState,
+    getCity,
+    getPincode,
+    getSociety,
+    getArea,
+    getTower
+})(Dashboard)

@@ -38,7 +38,7 @@ export default function (state = initialState, action){
             }
         case OTP_REQUEST_SENT:
             return {
-                ...state,
+                ...state, 
                 loading: true,
                 otpReceived: false
             }
@@ -50,7 +50,6 @@ export default function (state = initialState, action){
             }
         case AUTH_SUCCESS:
             localStorage.setItem('token', payload.token)
-            localStorage.setItem('mobile', payload.customer.mobile)
             return {
                 ...state,
                 ...payload,
@@ -62,6 +61,8 @@ export default function (state = initialState, action){
         case LOGOUT:
                 localStorage.removeItem('token')
                 localStorage.removeItem('mobile')
+                localStorage.removeItem('user')
+                localStorage.removeItem('expirationDate')
                 return {
                     ...state,
                     token: null,

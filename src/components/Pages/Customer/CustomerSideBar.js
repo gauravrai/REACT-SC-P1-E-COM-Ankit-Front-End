@@ -37,7 +37,10 @@ const CustomerSideBar = (props) => {
                             </Link>
                             <ul className="list-unstyled" id="homeSubmenu">
                                 <li>
-                                    <Link to="/customer/">Profile Information</Link>
+                                    <Link to="/customer/">My Profile</Link>
+                                </li>
+                                <li>
+                                    <Link to="/customer/address">My Address</Link>
                                 </li>
                             </ul>
                         </li>

@@ -65,20 +65,23 @@ export const matchOtpAndMobile = ({mobileNumber, otp}) => async dispatch => {
         
         dispatch({type: OTP_VALIDATE_REQUEST})
         const res = await axios.post('/checkcustomerotp', body)
+        const localStorageToken = localStorage.getItem('token')
 
-        //const localStorageToken = localStorage.getItem('token')
+        if(!localStorageToken)
+            localStorage.setItem('token', res.data.data.token)
 
-        // if(!localStorageToken)
-        //     localStorage.setItem('token', res.data.data.token)
-        // const expirationDate = new Date (new Date().getTime() + (100 * 100000))
-        // localStorage.setItem('expirationDate', expirationDate)
-        // localStorage.setItem('mobile', res.data.data.customer.mobile)
+        const expirationDate = new Date (new Date().getTime() + (100 * 100000))
+        localStorage.setItem('expirationDate', expirationDate)
+        localStorage.setItem('mobile', mobileNumber)
+        //localStorage.setItem('user', res.data.data.customer._id)
+        localStorage.setItem('user', res.data.data._id)
+        
         dispatch({
             type: AUTH_SUCCESS,
             payload: res.data.data
         })
     } catch (e) {
-        
+        console.log(e)
         dispatch(setAlert('Enter correct OTP', 'danger'))
         dispatch({
             type: AUTH_FAIL

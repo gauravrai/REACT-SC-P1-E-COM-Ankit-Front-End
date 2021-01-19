@@ -1,4 +1,7 @@
-import { GET_PRODUCTS, GET_PRODUCTS_ERROR } from "../actions/types"
+import { 
+    GET_PRODUCTS, 
+    GET_PRODUCTS_ERROR 
+} from "../actions/types"
 
 const initialState = {
     featuredProducts: [],
@@ -17,6 +20,7 @@ export default function (state = initialState, action){
                 featuredProducts: payload,
                 loading: false
             }
+        
         case GET_PRODUCTS_ERROR:
             return {
                 ...state,

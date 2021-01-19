@@ -7,8 +7,8 @@ import Banner from "../../Pages/Landing/Banner/Banner";
 import SideBar from "../../Layout/Sidebar/SideBar";
 import Footer from '../../Layout/Footer/Footer'
 import FeatureItems from "./FeatureItems/FeatureItems";
-import RecommendedItems from "./RecommendedItems/RecommendedItems";
-import BestSellerItems from "./BestSellerItems/BestSellerItems";
+//import RecommendedItems from "./RecommendedItems/RecommendedItems";
+//import BestSellerItems from "./BestSellerItems/BestSellerItems";
 
 
 

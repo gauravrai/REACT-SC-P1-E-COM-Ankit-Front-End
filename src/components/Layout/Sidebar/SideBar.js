@@ -4,7 +4,7 @@ import React from 'react'
 import Categories from './Categories/Categories'
 import Brands from './Brands/Brands'
 import PriceRange from './PriceRange/PriceRange'
-import Offers from './Offers/Offers'
+//import Offers from './Offers/Offers'
 
 const SideBar = () => {
     return (
@@ -12,7 +12,7 @@ const SideBar = () => {
             <Categories />
             <Brands />
             <PriceRange />
-            <Offers />
+            
         </div>
     )
 }

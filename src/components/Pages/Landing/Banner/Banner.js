@@ -1,13 +1,55 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-import imgGirl1 from '../../../../assets/images/home/girl1.jpg'
-import imgGirl2 from '../../../../assets/images/home/girl2.jpg'
-import imgGirl3 from '../../../../assets/images/home/girl3.jpg'
+import Spinner from '../../../Layout/Spinner/Spinner'
+
+
 import imgPricing from '../../../../assets/images/home/girl3.jpg'
 
+import { getBanner } from '../../../../actions/banner'
 
+const Banner = ({getBanner, banners: { banners, loading}}) => {
+    useEffect(() => {
+        getBanner()
+    }, [getBanner])
+    
+    let bannerString = ''
+    let bannerLinks = ''
+    
+    if(!loading){
+        if(banners.length){
+            let bannerLinkCounter = -1
+            bannerLinks = banners.map(item => {
+                bannerLinkCounter++
+                return <li data-target="#slider-carousel" key={`banner${bannerLinkCounter}`} data-slide-to={bannerLinkCounter} className={(bannerLinkCounter===0)?"active":""}></li>
+            })
+            let counter = 0
+            bannerString = banners.map(item => {
+                counter ++
+                let dateFrom = new Date(item.from)
+                let dateTo = new Date(item.to)
+                return <div className={(counter===1)?'item active': 'item'} key={`bannerItem${counter}`}>
+                            <div className="col-sm-6">
+                                <h1>{item.name}</h1>
+                                <h2>
+                                    {`${dateFrom.getDate()}-${dateFrom.getMonth()}-${dateFrom.getFullYear()}`} 
+                                    &nbsp;to &nbsp; 
+                                    {`${dateTo.getDate()}-${dateTo.getMonth()}-${dateTo.getFullYear()}`} 
+                                </h2>
+                                <p className="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <button type="button" className="btn btn-default get ">Get it now</button>
+                            </div>
+                            <div className="col-sm-6">
+                                <img src={`${item.path}/${item.bannerImage}`} className="girl img-responsive" alt="" />
+                                <img src={imgPricing}  className="pricing hide" alt="" />
+                            </div>
+                        </div>
+            })
+        }
+    }
+    
 
-const Banner = () => {
     return (
         <section id="slider">
             <div className="container">
@@ -15,50 +57,13 @@ const Banner = () => {
                     <div className="col-sm-12">
                         <div id="slider-carousel" className="carousel slide" data-ride="carousel">
                             <ol className="carousel-indicators">
-                                <li data-target="#slider-carousel" data-slide-to="0" className="active"></li>
-                                <li data-target="#slider-carousel" data-slide-to="1"></li>
-                                <li data-target="#slider-carousel" data-slide-to="2"></li>
+                                {loading?"": bannerLinks}
+                                
                             </ol>
                             
                             <div className="carousel-inner">
-                                <div className="item active">
-                                    <div className="col-sm-6">
-                                        <h1><span>E</span>-SHOPPER</h1>
-                                        <h2>Free E-Commerce Template</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        <button type="button" className="btn btn-default get">Get it now</button>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <img src={imgGirl1} className="girl img-responsive" alt="" />
-                                        <img src={imgPricing}  className="pricing" alt="" />
-                                    </div>
-                                </div>
-                                <div className="item">
-                                    <div className="col-sm-6">
-                                        <h1><span>E</span>-SHOPPER</h1>
-                                        <h2>100% Responsive Design</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        <button type="button" className="btn btn-default get">Get it now</button>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <img src={imgGirl2} className="girl img-responsive" alt="" />
-                                        <img src={imgPricing}  className="pricing" alt="" />
-                                    </div>
-                                </div>
                                 
-                                <div className="item">
-                                    <div className="col-sm-6">
-                                        <h1><span>E</span>-SHOPPER</h1>
-                                        <h2>Free Ecommerce Template</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        <button type="button" className="btn btn-default get">Get it now</button>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <img src={imgGirl3} className="girl img-responsive" alt="" />
-                                        <img src={imgPricing}  className="pricing" alt="" />
-                                    </div>
-                                </div>
-                                
+                                {loading? <Spinner /> : bannerString}
                             </div>
                             
                             <a href="#slider-carousel" className="left control-carousel hidden-xs" data-slide="prev">
@@ -76,4 +81,18 @@ const Banner = () => {
     )
 }
 
-export default Banner
+
+Banner.propTypes = {
+    getBanner: PropTypes.func.isRequired,
+    banners: PropTypes.object.isRequired,
+}
+const mapStateToProps = state => {
+    
+    return ({
+        banners: state.banner
+    })
+}
+
+export default connect(mapStateToProps, { 
+    getBanner
+})(Banner)

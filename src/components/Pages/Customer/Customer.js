@@ -6,6 +6,7 @@ import Orders from './Orders'
 import Coupons from './Coupons'
 import Wallet from './Wallet'
 import Wishlist from './Wishlist'
+import Checkout from '../Shop/Checkout/Checkout'
 
 class Customer extends Component {
     state = {
@@ -21,10 +22,17 @@ class Customer extends Component {
         this.updateSideBar()
     }
     updateSideBar = () => {
+        
         if(this.props.match.params.tab === 'orders'){
             this.setState({
                 ...this.state,
                 customerComponent: <Orders sideActive="orders" />
+            })
+        }
+        else if(this.props.match.params.tab === 'checkout'){
+            this.setState({
+                ...this.state,
+                customerComponent: <Checkout  />
             })
         }
         else if(this.props.match.params.tab === 'coupons'){

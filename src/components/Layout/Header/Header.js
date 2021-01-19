@@ -9,7 +9,6 @@ export const Header = () => {
         <header id="header">
             <HeaderTop />
             <HeaderMiddle />
-            <HeaderBottom />
         </header>
     )
 }

@@ -137,7 +137,6 @@ a#scrollUp i{
 }
 
 .header-middle .container .row {
-  border-bottom: 1px solid #f5f5f5;
   margin-left: 0;
   margin-right: 0;
   padding-bottom: 20px;
@@ -198,7 +197,6 @@ a#scrollUp i{
 
 
 .shop-menu ul li a {
-  background: #FFFFFF;
   color: #696763;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -216,7 +214,6 @@ a#scrollUp i{
 
 .shop-menu ul li a:hover {
 	color:#8B0000;
-	background:#fff;
 }
 
 
@@ -251,7 +248,7 @@ a#scrollUp i{
 	background:none;
 	color:#800000;
 }
-.search_box{ width: 100%;}
+.search_box{ width: 100%; margin-top: 40px;}
 .search_box input {
   background: #F0F0E9;
   border: medium none;
@@ -1619,13 +1616,13 @@ h2.title {
 
 #cart_items .cart_info .cart_price p {
   color:#696763;
-  font-size: 18px
+  font-size: 14px
 }
 
 
 #cart_items .cart_info .cart_total_price {
   color: #800000;
-  font-size: 24px;
+  font-size: 14px;
 }
 
 .cart_product {
@@ -1658,7 +1655,6 @@ h2.title {
 
 .cart_delete  {
   display: block;
-  margin-right: -12px;
   overflow: hidden;
 }
 
@@ -2523,4 +2519,31 @@ h2.title {
   color: #800000;
 }
 
-
+.product-image{
+  width: 242px;
+  height: 270px;
+}
+.product-image-thumbnail{
+  width: 42px;
+  height: 70px;
+}
+.mar20{
+  margin-top: 20px !important;
+}
+.mar40{
+  margin-top: 40px !important;
+}
+.mainmenu{
+  margin-top: 50px;
+}
+div.alert {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: 100%;
+  text-align: right;
+}
+.pad25left{
+  padding-left: 25px;
+}
