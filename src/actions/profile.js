@@ -77,7 +77,7 @@ export const getCurrentProfile = () => async dispatch => {
             type: GET_PROFILE,
             payload: resp.data.data
         })
-
+        
         //get state
         const stateResp = await axios.get('/state')
         dispatch({

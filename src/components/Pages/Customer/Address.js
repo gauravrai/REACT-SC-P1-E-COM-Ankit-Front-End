@@ -64,15 +64,17 @@ function Address({
                 shippingTowerStr = ''
 
             if(!profile.loading){
-                if(!profileData.name){
-                    
+                console.log('PROFILE', profile.profile)
+                if(!profileData.billingAddress && profile.profile.name){
                     setProfileData({
                         ...profile.profile
                     })
+                    console.log('PROFILEDATA', profileData)
                 }
                 
                 
-                if(!billingState.loading){
+                if(!billingState.loading && profileData.billingAddress){
+                    console.log('-->', profileData)
                     billingStateStr = billingState.payload.map(item => {
                         return item._id === profileData.billingAddress.state ? 
                                     <option selected value={item._id}>{item.name}</option>
@@ -133,7 +135,7 @@ function Address({
 
 
                 //shipping address
-                if(!billingState.loading){
+                if(!billingState.loading && profileData.shippingAddress){
                     shipingStateStr = billingState.payload.map(item => {
                         return item._id === profileData.shippingAddress.state ? 
                                     <option selected value={item._id}>{item.name}</option>
