@@ -11,7 +11,7 @@ import {
     OTP_VALIDATE_REQUEST,
     LOGOUT
 } from './types'
-
+  
 //load user
 export const loadUser = () => async dispatch => {
     console.log(localStorage.token)

@@ -11,7 +11,7 @@ import helpers from '../../../utils/helper'
 
 const SingleProductInList = (props) => {
     
-    const productObjectForInputs = props.featuredProductParsedData[0].map(item => {
+    let productObjectForInputs = props.products[0].map(item => {
         return {
             select: {
                 name: `selectVariant${item.id}`,
@@ -27,10 +27,11 @@ const SingleProductInList = (props) => {
         }
     })
     
-    const [ productItems, setProductItemData ] = useState(productObjectForInputs)
-    
-    const onChangeHandler = e => {
+    let [ productItems, setProductItemData ] = useState(productObjectForInputs)
+        
+    let onChangeHandler = e => {
         const index = e.target.getAttribute('data-index')
+    
         let newProductObject = [
             ...productItems
         ]
@@ -38,7 +39,7 @@ const SingleProductInList = (props) => {
         
         setProductItemData(newProductObject)
     }
-    const AddToCartHandler = e => {
+    let AddToCartHandler = e => {
         e.preventDefault()
         const productId = e.target.getAttribute('data-product-id')
         const variantSelect = document.getElementById(`variantSelect${productId}`)
@@ -53,15 +54,15 @@ const SingleProductInList = (props) => {
             price
         })
     }
-    const AddToWishlist = e => {
+    let AddToWishlist = e => {
         e.preventDefault()
         const productId = e.target.getAttribute('data-product-id')
         props.addToWishlist({
             productId
         })
     }
-    const singleProduct = productItems.map((item, index) => {
-        
+    
+    const singleProduct = productObjectForInputs.map((item, index) => {
         return (
                 
                 <div className="col-sm-6 col-md-4 col-xs-12 product-container" key={item.product.id}>
@@ -88,6 +89,7 @@ const SingleProductInList = (props) => {
                                                                 <option 
                                                                     data-price={variant.price} 
                                                                     value={variant.varientId}
+                                                                    key={variant.varientId}
                                                                 >
                                                                     {variant.varient} @ {helpers.formatMoney(variant.price)}
                                                                 </option>)

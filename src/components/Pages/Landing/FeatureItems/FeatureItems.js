@@ -36,7 +36,7 @@ const FeatureItems = ({getFeaturedProducts, featuredProducts: {featuredProducts,
         <div className="features_items">
             <h2 className="title text-center">Featured Items</h2>
             <div className="row">
-                {loading? <Spinner /> : <SingleProductInList featuredProductParsedData={featuredProductParsedData}   />}
+                {loading? <Spinner /> : <SingleProductInList products={featuredProductParsedData}   />}
             </div>
         </div>
     

@@ -1,28 +1,31 @@
 import React, { Fragment, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getSideBar } from '../../../../actions/sidebar'
 import Spinner from '../../Spinner/Spinner'
 
-const Categories = ({ getSideBar, category: {categories, loading} }) => {
+const Categories = () => {
+    const dispatch = useDispatch();
     useEffect(() => {
-        getSideBar()
-    }, [getSideBar])
+        dispatch(getSideBar())
+    }, [dispatch])
+
+    let sidebar = useSelector((state)=>state.sidebar)
+    let { categories, loading, error } = sidebar
     
     let categoriesSection = null
-
     if(!loading){
         categoriesSection = categories.map(item => (
             <div className="panel panel-default" key={item._id}>
                 <div className="panel-heading">
-                    <h4 className="panel-title"><Link to={"/category/" + item.slug}>{item.name}</Link></h4>
+                    <h4 className="panel-title"><Link to={`/category/${item.slug}/${item._id}`}>{item.name}</Link></h4>
                 </div>
             </div>
         ))
     }
 
-    return loading ? <Spinner /> : (
+    return (
         <Fragment>
             <h2>Category</h2>
             <div className="panel-group category-products" id="accordian">
@@ -31,15 +34,5 @@ const Categories = ({ getSideBar, category: {categories, loading} }) => {
         </Fragment>
     )
 }
-Categories.propTypes = {
-    getSideBar: PropTypes.func.isRequired,
-    category: PropTypes.object.isRequired,
-}
-const mapStateToProps = state => {
-    return ({
-        category: state.sidebar
-    })
-}
-export default connect(mapStateToProps, { 
-    getSideBar
-})(Categories)
+
+export default Categories
